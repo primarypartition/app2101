@@ -50,3 +50,10 @@ git branch -M main
 git remote add origin https://github.com/primarypartition/app2101.git
 git push -u origin main
 ```
+
+
+## Other
+
+
+> php artisan server
+> php artisan migrate:fresh
