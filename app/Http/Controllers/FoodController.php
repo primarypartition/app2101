@@ -121,7 +121,7 @@ class FoodController extends Controller
         $food->image = $name;
         $food->save();
 
-       return redirect()->route('food.index')->with('message', 'Food information updated');
+        return redirect()->route('food.index')->with('message', 'Food information updated');
     }
 
     /**
@@ -133,6 +133,8 @@ class FoodController extends Controller
     public function destroy($id)
     {
         $food = Food::find($id);
+
+        unlink(public_path('/images') . "/" . $food->image);
         $food->delete();
 
         return redirect()->route('food.index')->with('message', 'Food information updated');
@@ -143,9 +145,9 @@ class FoodController extends Controller
      */
     public function listFood()
     {
-         $categories = Category::with('food')->get();
+        $categories = Category::with('food')->get();
 
-         return view('food.list', compact('categories'));
+        return view('food.list', compact('categories'));
     }
 
     /**
