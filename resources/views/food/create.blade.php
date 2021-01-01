@@ -49,9 +49,9 @@
                     <div class="form-group">
                         <label for="name">Category</label>
                         <select name="category" class="form-control @error('category') is-invalid @enderror">
-                            <option value="">Slect category</option>
-                            @foreach(App\Category::all() as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            <option value="">Select category</option>
+                            @foreach(App\Models\Category::all() as $category)
+                                <option value="{{$category->id}}">{{ $category->name }}</option>
                             @endforeach
                         </select>
 
@@ -81,4 +81,5 @@
         </div>
     </div>
 </div>
+
 @endsection

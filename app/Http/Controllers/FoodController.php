@@ -18,7 +18,7 @@ class FoodController extends Controller
     {
         $foods = Food::latest()->paginate(10);
 
-        return view('food.index',compact('foods'));
+        return view('food.index', compact('foods'));
     }
 
     /**
@@ -39,19 +39,18 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+        $this->validate($request, [
             'name'=>'required',
             'description'=>'required',
             'price'=>'required|integer',
             'category'=>'required',
             'image'=>'required|mimes:jpg,jpeg,png'
-
         ]);
 
         $image = $request->file('image');
         $name = time().'.'.$image->getClientOriginalExtension();
         $destinationPath = public_path('/images');
-        $image->move($destinationPath,$name);
+        $image->move($destinationPath, $name);
 
         Food::create([
             'name'=>$request->get('name'),
@@ -59,9 +58,9 @@ class FoodController extends Controller
             'price'=>$request->get('price'),
             'category_id'=>$request->get('category'),
             'image'=>$name
-
         ]);
-        return redirect()->back()->with('message','Food Created');
+
+        return redirect()->back()->with('message', 'Food Created');
     }
 
     /**
@@ -85,7 +84,7 @@ class FoodController extends Controller
     {
         $food = Food::find($id);
 
-        return view('food.edit',compact('food'));
+        return view('food.edit', compact('food'));
     }
 
     /**
@@ -103,8 +102,8 @@ class FoodController extends Controller
             'price'=>'required|integer',
             'category'=>'required',
             'image'=>'mimes:jpg,jpeg,png'
-
         ]);
+
         $food = Food::find($id);
         $name = $food->image;
 
@@ -112,7 +111,7 @@ class FoodController extends Controller
             $image = $request->file('image');
             $name = time().'.'.$image->getClientOriginalExtension();
             $destinationPath = public_path('/images');
-            $image->move($destinationPath,$name);
+            $image->move($destinationPath, $name);
         }
 
         $food->name = $request->get('name');
@@ -122,8 +121,7 @@ class FoodController extends Controller
         $food->image = $name;
         $food->save();
 
-       return redirect()->route('food.index')->with('message','Food information updated');
-
+       return redirect()->route('food.index')->with('message', 'Food information updated');
     }
 
     /**
@@ -137,7 +135,7 @@ class FoodController extends Controller
         $food = Food::find($id);
         $food->delete();
 
-        return redirect()->route('food.index')->with('message','Food information updated');
+        return redirect()->route('food.index')->with('message', 'Food information updated');
     }
 
     /**
@@ -147,7 +145,7 @@ class FoodController extends Controller
     {
          $categories = Category::with('food')->get();
 
-         return view('food.list',compact('categories'));
+         return view('food.list', compact('categories'));
     }
 
     /**
@@ -157,6 +155,6 @@ class FoodController extends Controller
     {
         $food = Food::find($id);
 
-        return view('food.detail',compact('food'));
+        return view('food.detail', compact('food'));
     }
 }
