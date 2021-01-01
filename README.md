@@ -57,3 +57,4 @@ git push -u origin main
 
 > php artisan server
 > php artisan migrate:fresh
+> php artisan route:list
